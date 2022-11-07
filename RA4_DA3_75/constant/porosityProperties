@@ -1,0 +1,61 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  3.0.1                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      porosityProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+porosity1
+{
+    type            fixedCoeff;
+    active          true;
+    cellZone        porousZone;
+
+	D 0.01;
+	F 5.29;
+
+        fixedCoeffCoeffs
+        {
+            alpha      [0 0 -1 0 0 0 0] ($D $D $D);
+            beta       [0 -1 0 0 0 0 0] ($F $F $F);
+            rhoRef     1;
+
+            coordinateSystem // Cylindrical coordinates for the cellZone
+            {
+                type    cartesian;
+                origin  (0 0 0);
+			coordinateRotation
+				{
+					type    axesRotation;
+					e1 (1 0 0);
+					e2 (0 1 0);
+				}
+            }
+        }
+
+}
+
+
+/*0.25	1.00E-04	2.5E-05	33.47
+0.25	1.00E-03	0.00025	10.58
+0.25	1.00E-02	0.0025	3.35
+			
+0.5	1.00E-04	5E-05	23.67
+0.5	1.00E-03	0.0005	7.48
+0.5	1.00E-02	0.005	2.37
+			
+0.75	1.00E-04	7.5E-05	19.32
+0.75	1.00E-03	0.00075	6.11
+0.75	1.00E-02	0.0075	1.93*/
+
+//************************************************************************ //
